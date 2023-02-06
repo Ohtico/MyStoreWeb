@@ -1,0 +1,37 @@
+#BackNav {
+  background: linear-gradient(to right, #f8cdda, #1d2b64);
+}
+#upload {
+  display: none;
+}
+
+.iconLogout:hover {
+  cursor: pointer !important;
+}
+.margenTitle {
+  margin-top: 60px !important;
+  margin-bottom: 20px !important;
+  margin-left: 10px;
+}
+.iconColor {
+  color: pink !important;
+}
+.iconColorCar {
+  color: rgb(255, 255, 255) !important;
+}
+.iconColorMale {
+  color: rgb(109, 200, 252) !important;
+}
+.iconStatus {
+  color: rgb(58, 196, 68) !important;
+}
+.iconColorRed {
+  color: red !important;
+}
+
+.margenImage {
+  margin-top: 60px !important;
+}
+a {
+  text-decoration: none;
+}
