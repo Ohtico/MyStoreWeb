@@ -60,6 +60,10 @@ export const Detail = () => {
       setMessageError("Ingrese la cantidad a solicitar");
     } else if (Number(quantity) < 0 || Number(quantity) === 0) {
       setMessageError("La cantidad no puede ser menor o igual a cero");
+    } else if (quantity > Number(ProductCurrent.stock)) {
+      setMessageError(
+        `La cantidad a reservar supera a la cantidad disponible ${ProductCurrent.stock}`
+      );
     } else if (product && productExis.length > 0) {
       productExis[0].quantity =
         Number(productExis[0].quantity) + Number(quantity);

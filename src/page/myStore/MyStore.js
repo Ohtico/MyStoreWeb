@@ -127,23 +127,26 @@ export const MyStore = ({ valuesSearh, resetSearch }) => {
 
   const handleCar = (e) => {
     e.preventDefault();
+    // console.log();
+    // ProductCurrent.stock
     const arrayProducto = [];
     if (product) product.map((e) => arrayProducto.push(e));
     let productExis = product?.filter((e) => e.id === ProductCurrent.id);
-
     const data = {
       ...ProductCurrent,
       ...values,
     };
-
     if (!quantity) {
       setMessageError("Ingrese la cantidad a solicitar");
     } else if (Number(quantity) < 0 || Number(quantity) === 0) {
       setMessageError("La cantidad no puede ser menor o igual a cero");
+    } else if (quantity > Number(ProductCurrent.stock)) {
+      setMessageError(
+        `La cantidad a reservar supera a la cantidad disponible ${ProductCurrent.stock}`
+      );
     } else if (product && productExis.length > 0) {
       let quantityNow = Number(productExis[0].quantity) + Number(quantity);
       productExis[0].quantity = quantityNow;
-
       let multi = Number(quantityNow) * Number(productExis[0].price);
       productExis[0].total = multi;
       let productNew = arrayProducto?.filter((e) => e.id !== ProductCurrent.id);

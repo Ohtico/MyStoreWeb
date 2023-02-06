@@ -15,13 +15,15 @@ import TablePrincipal from "../../component/table/TablePrincipal";
 import { Tbody } from "./Tbody";
 import { ExportPdf } from "../../component/funciones/ExportPdf";
 import { addCar } from "../../action/ActionCar";
+import { TbodyPdf } from "./TbodyPdf";
 
 export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
   const { product } = useSelector((state) => state.card);
-  const { code } = useSelector((state) => state.login);
+  const { code, name, lastname } = useSelector((state) => state.login);
   const [AllQuantity, setAllQuantity] = useState(null);
   const [AllQuantityTotal, setAllQuantityTotal] = useState(null);
   const [dataTotalTable, setdataTotalTable] = useState(null);
+  const [dateToday, setDateToday] = useState(null);
 
   const { search } = valuesSearh;
   const dispacth = useDispatch();
@@ -49,6 +51,20 @@ export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
     { name: "Nombre" },
     { name: "Descripción" },
     { name: "Acciones" },
+  ];
+  const theadPdf = [
+    { name: "Código" },
+    { name: "Cantidad" },
+    { name: "Precio unidad" },
+    { name: "Precio total" },
+    { name: "Nombre" },
+    { name: "Descripción" },
+  ];
+  const theadClientePdf = [
+    { name: "Código" },
+    { name: "Cantidad" },
+    { name: "Nombre" },
+    { name: "Descripción" },
   ];
 
   useEffect(() => {
@@ -82,6 +98,19 @@ export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
     }
   }, [AllQuantity, AllQuantityTotal, product]);
 
+  const handleTime = () => {
+    let fechaHoy = new Date();
+    setDateToday(
+      fechaHoy.toLocaleDateString() +
+        " " +
+        fechaHoy.getHours() +
+        ":" +
+        fechaHoy.getMinutes() +
+        ":" +
+        fechaHoy.getSeconds()
+    );
+  };
+
   return (
     <>
       <div
@@ -107,7 +136,24 @@ export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
               ></button>
             </div>
 
-            <div className="modal-body" id="pressPdf">
+            <div id="pressPdf">
+              <p>Usuario: {`${name} ${lastname}`}</p>
+              <p>Código: {code}</p>
+              <p>Fecha y hora: {dateToday}</p>
+
+              <TablePrincipal
+                thead={Number(code) !== 123456 ? theadPdf : theadClientePdf}
+                data={product ? product : []}
+                tbodyData={TbodyPdf}
+                subTotals={
+                  Number(code) !== 123456 && dataTotalTable
+                    ? dataTotalTable
+                    : []
+                }
+              />
+            </div>
+
+            <div className="modal-body">
               {product && product.length > 0 ? (
                 <TablePrincipal
                   thead={Number(code) !== 123456 ? thead : theadCliente}
@@ -193,6 +239,7 @@ export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
               data-bs-toggle="modal"
               data-bs-target="#exampleModalCar"
               className="mx-2 iconLogout iconColorMale"
+              onClick={handleTime}
               size={"30px"}
             />
             <BiLogOut
