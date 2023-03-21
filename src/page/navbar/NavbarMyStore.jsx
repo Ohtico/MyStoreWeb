@@ -79,7 +79,6 @@ export const NavbarMyStore = ({ valuesSearh, handleInputChangeSearch }) => {
 
   useEffect(() => {
     if (AllQuantity) {
-      console.log(AllQuantity);
       const initialValue = 0;
       const sumWithInitial = AllQuantity.reduce(
         (accumulator, currentValue) =>
