@@ -16,6 +16,7 @@ import { LabelGroup } from "../../component/inputForm/InputGroup";
 import { useForm } from "../../CustomHook/useForm";
 import { addCar } from "../../action/ActionCar";
 import { FuncOnlyNumber } from "../../component/funciones/FuncOnlyNumber";
+import { ImageProductos } from "../../component/Style/Title";
 
 export const MyStore = ({ valuesSearh, resetSearch }) => {
   const { product } = useSelector((state) => state.card);
@@ -264,26 +265,44 @@ export const MyStore = ({ valuesSearh, resetSearch }) => {
         <div className="row">
           {DataProduct && !DataFiltro
             ? DataProduct.map((e, index) => {
-                const { image, name, description, price, id } = e;
+                const { image, name, description, price, id, stock } = e;
+                console.log(e);
                 return (
                   <div
-                    className="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-center  p-1"
+                    className="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-center  p-3"
                     key={index}
                   >
                     <div
                       className="mt-4 shadow p-2 mb-5 bg-body rounded"
-                      style={{ width: "17rem" }}
+                      style={{ width: "17rem", height: "30rem" }}
                     >
-                      <img
-                        style={{ width: "100%", height: "60%" }}
-                        src={image[0]}
-                        className="card-img-top rounded iconLogout"
-                        alt={name}
-                        onClick={() => navigate(`/detail?produc=${id}`)}
-                      />
+                      {Number(stock) < 1 ? (
+                        <ImageProductos
+                          imagen={image[0]}
+                          className="card-img-top rounded d-flex justify-content-center"
+                          onClick={() => navigate(`/detail?produc=${id}`)}
+                        >
+                          <div className="d-flex justify-content-center align-items-center">
+                            <h2 className="text-danger ">AGOTADO</h2>
+                          </div>
+                        </ImageProductos>
+                      ) : (
+                        <img
+                          style={{ width: "100%", height: "60%" }}
+                          src={image[0]}
+                          className="card-img-top rounded iconLogout"
+                          alt={name}
+                          onClick={() => navigate(`/detail?produc=${id}`)}
+                        />
+                      )}
+
                       <div className="card-body">
                         <h5
-                          className="card-title iconLogout"
+                          className={
+                            name && name.length > 60
+                              ? "col-12 text-truncate"
+                              : "card-title iconLogout"
+                          }
                           onClick={() => navigate(`/detail?produc=${id}`)}
                         >
                           {name}
@@ -299,26 +318,27 @@ export const MyStore = ({ valuesSearh, resetSearch }) => {
                         {Number(code) !== 123456 && (
                           <h5 className="text-success ">Precio: ${price}</h5>
                         )}
-                        <button
-                          className="btn btn-primary mb-4 float-end"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          onClick={() => setProductCurrent(e)}
-                        >
-                          <BsCartPlusFill
-                            // onClick={logoutAuth}
-                            className="iconLogout iconColorCar"
-                            size={"30px"}
-                          />
-                        </button>
                       </div>
+
+                      <button
+                        className="btn btn-primary mb-4 float-end"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={() => setProductCurrent(e)}
+                      >
+                        <BsCartPlusFill
+                          // onClick={logoutAuth}
+                          className="iconLogout iconColorCar"
+                          size={"25px"}
+                        />
+                      </button>
                     </div>
                   </div>
                 );
               })
             : DataFiltro.map((e, index) => {
-                const { image, name, description, price, id } = e;
+                const { image, name, description, price, id, stock } = e;
                 return (
                   <div
                     className="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-center  p-1"
@@ -326,18 +346,35 @@ export const MyStore = ({ valuesSearh, resetSearch }) => {
                   >
                     <div
                       className="mt-4 shadow p-2 mb-5 bg-body rounded"
-                      style={{ width: "17rem" }}
+                      style={{ width: "17rem", height: "30rem" }}
                     >
-                      <img
-                        style={{ width: "100%", height: "60%" }}
-                        src={image[0]}
-                        className="card-img-top rounded iconLogout"
-                        alt={name}
-                        onClick={() => navigate(`/detail?produc=${id}`)}
-                      />
+                      {Number(stock) < 1 ? (
+                        <ImageProductos
+                          imagen={image[0]}
+                          className="card-img-top rounded d-flex justify-content-center"
+                          onClick={() => navigate(`/detail?produc=${id}`)}
+                        >
+                          <div className="d-flex justify-content-center align-items-center">
+                            <h2 className="text-danger ">AGOTADO</h2>
+                          </div>
+                        </ImageProductos>
+                      ) : (
+                        <img
+                          style={{ width: "100%", height: "60%" }}
+                          src={image[0]}
+                          className="card-img-top rounded iconLogout"
+                          alt={name}
+                          onClick={() => navigate(`/detail?produc=${id}`)}
+                        />
+                      )}
+
                       <div className="card-body">
                         <h5
-                          className="card-title iconLogout"
+                          className={
+                            name && name.length > 60
+                              ? "col-12 text-truncate"
+                              : "card-title iconLogout"
+                          }
                           onClick={() => navigate(`/detail?produc=${id}`)}
                         >
                           {name}
@@ -353,20 +390,21 @@ export const MyStore = ({ valuesSearh, resetSearch }) => {
                         {Number(code) !== 123456 && (
                           <h5 className="text-success ">Precio: ${price}</h5>
                         )}
-                        <button
-                          className="btn btn-primary mb-4 float-end"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          onClick={() => setProductCurrent(e)}
-                        >
-                          <BsCartPlusFill
-                            // onClick={logoutAuth}
-                            className="iconLogout iconColorCar"
-                            size={"30px"}
-                          />
-                        </button>
                       </div>
+
+                      <button
+                        className="btn btn-primary mb-4 float-end"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={() => setProductCurrent(e)}
+                      >
+                        <BsCartPlusFill
+                          // onClick={logoutAuth}
+                          className="iconLogout iconColorCar"
+                          size={"25px"}
+                        />
+                      </button>
                     </div>
                   </div>
                 );

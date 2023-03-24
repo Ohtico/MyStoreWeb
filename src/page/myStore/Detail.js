@@ -179,7 +179,7 @@ export const Detail = () => {
       <div className="container margenImage">
         <div className="row">
           <div className="col-sm-12 col-md-6">
-            {DataProduct.length !== 0 && (
+            {DataProduct && DataProduct.length !== 0 && (
               <img
                 style={{ width: "100%", height: "70%" }}
                 src={DataProduct?.image[positionImage]}
@@ -187,9 +187,11 @@ export const Detail = () => {
                 alt={DataProduct?.name}
               />
             )}
-            {DataProduct.length !== 0 &&
+            {DataProduct &&
+              DataProduct.length !== 0 &&
               DataProduct?.image.map((e, i) => (
                 <img
+                  key={i}
                   onClick={() => setpositionImage(i)}
                   style={{ width: "20%", height: "20%" }}
                   src={e}

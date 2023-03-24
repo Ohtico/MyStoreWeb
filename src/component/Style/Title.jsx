@@ -12,3 +12,14 @@ export const LabeFormlStyled = styled.label`
   color: ${(props) => (props.error ? "red" : "#454546")};
   font-size: 0.75rem;
 `;
+
+export const ImageProductos = styled.div`
+  width: 100%;
+  height: 60%;
+  background: #bdc3c7;
+  background-position: center;
+  background: linear-gradient(to bottom, #fffdfd00, #e3e3e3bc),
+    url("${(props) => props.imagen}");
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+`;
